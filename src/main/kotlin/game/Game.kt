@@ -1,12 +1,16 @@
 package game
 
 
-class Game(val dimention: Int = 1, val userA: User = User("A", Icon.X), val userB: User= User("B", Icon.O)) {
+class Game(val dimention: Int = 1, val playerX: Player = Player("X", Icon.X), val playerO: Player = Player("O", Icon.O)) {
 
 
-    var current: User = userA
-    val size = 6 * dimention +2
-    var field =  ArrayList<ArrayList<Cell>>()
+    var current: Player = playerX
+    val size = 6 * dimention + 2
+    var field = ArrayList<ArrayList<Cell>>()
+
+    var actions = ArrayList<Cell>()
+    var draftMode = true
+
     init {
         for (i in 0 until size) {
             val row = ArrayList<Cell>()
@@ -17,28 +21,53 @@ class Game(val dimention: Int = 1, val userA: User = User("A", Icon.X), val user
         }
     }
 
-    val move: (Int, Int) -> Unit = { x, y ->
-        val cell = field[x][y]
-        when (cell.state) {
-            CellState.NEUTRAL -> {
-                cell.state = CellState.CAPTURED
-                cell.owner = current
-
+    fun finishActions(): Boolean {
+        return if (actions.size == 3) {
+            current = if (current == playerX) {
+                playerO
+            } else {
+                playerX
             }
-            CellState.CAPTURED -> {
-                if (cell.owner != current) {
+            actions = ArrayList()
+            true
+        } else {
+            false
+        }
+
+    }
+
+
+    fun move(x: Int, y: Int) {
+        if (actions.size < 3) {
+            val cell = field[x][y]
+            when (cell.state) {
+                CellState.NEUTRAL -> {
+                    cell.state = CellState.CAPTURED
                     cell.owner = current
-                    cell.state = CellState.WALL
+                    actions.add(cell)
                 }
+                CellState.CAPTURED -> {
+                    if (cell.owner != current) {
+                        cell.owner = current
+                        cell.state = CellState.WALL
+                        actions.add(cell)
+                    }
+                }
+            }
+
+            if (actions.size == 3 && !draftMode) {
+                finishActions()
             }
         }
     }
 
-    fun copy(): Game{
+    fun copy(): Game {
 
         val copy = Game(dimention)
         copy.field = field
         copy.current = current
+        copy.actions = actions
+        copy.draftMode = draftMode
         return copy
     }
 
