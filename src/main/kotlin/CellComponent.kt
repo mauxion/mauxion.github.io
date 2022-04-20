@@ -23,11 +23,6 @@ val CellComponent = FC<CellProps> { props ->
     val innerSize =  (props.size * 0.9).toInt()
 
     val connected = props.g.isConnected(cell)
-//    val icon = when (cell.state) {
-//        CellState.NEUTRAL -> "[]"
-//        CellState.CAPTURED -> cell.owner!!.icon.text
-//        CellState.WALL -> "W"
-//    }
 
 
 

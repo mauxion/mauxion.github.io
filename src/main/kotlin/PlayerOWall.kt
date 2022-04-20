@@ -1,7 +1,4 @@
-import csstype.Display
-import csstype.NamedColor
-import csstype.px
-import csstype.vh
+import csstype.*
 import react.FC
 import react.Props
 import react.css.css
@@ -16,7 +13,7 @@ external interface PlayerOWallProps : Props {
 val PlayerOWall = FC<PlayerOWallProps> { props ->
 
 
-    val innerSize = props.xWallSize.vh
+    val innerSize = props.xWallSize.vw
 
     val color = if (props.isConnected) {
         NamedColor.darkred
@@ -24,7 +21,7 @@ val PlayerOWall = FC<PlayerOWallProps> { props ->
         NamedColor.rosybrown
     }
 
-    val margin = (props.xWallSize * 0.1).vh
+    val margin = (props.xWallSize * 0.1).vw
 
     div {
 

@@ -12,9 +12,9 @@ external interface PlayerXWallProps : Props {
 val UserAWall = FC<PlayerXWallProps> { props ->
 
 
-    val innerSize = (props.oWallSize* 1.1).vh
+    val innerSize = (props.oWallSize* 1.1).vw
 
-    val margin = (props.oWallSize * 0.05).vh
+    val margin = (props.oWallSize * 0.05).vw
 
     val color = if (props.isConnected) {
         NamedColor.darkblue
@@ -28,7 +28,7 @@ val UserAWall = FC<PlayerXWallProps> { props ->
             width = innerSize
             height = innerSize
             backgroundColor = color
-            borderRadius = 50.vh
+            borderRadius = 50.vw
             display = Display.inlineBlock
         }
     }
