@@ -11,10 +11,10 @@ external interface PlayerOProps : Props {
 
 val UserO = FC<PlayerOProps> { props ->
 
-    val innerSize = (props.oSize - 4).px //
+    val innerSize = (props.oSize*0.85).vh //
 
 
-    val margin = (props.oSize * 0.05).px
+    val margin = (props.oSize * 0.05).vh
 
     div {
         css {
@@ -22,17 +22,11 @@ val UserO = FC<PlayerOProps> { props ->
             width = innerSize
             height = innerSize
             //backgroundColor = NamedColor.darkgray
-            borderRadius = props.oSize.pc
+            borderRadius = props.oSize.vh
             display = Display.inlineBlock
-            border = Border(2.px, LineStyle.solid, NamedColor.darkred)
+            border = Border(1.vh, LineStyle.solid, NamedColor.darkred)
         }
     }
 
-
-//        css {
-//            padding = 5.px
-//            backgroundColor = rgb(8, 97, 22)
-//            color = rgb(56, 246, 137)
-//        }
 
 }

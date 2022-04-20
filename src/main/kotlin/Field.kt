@@ -22,7 +22,7 @@ val Field = FC<FieldProps> { props ->
 
     val game by useState(props.g)
 
-    val cellSize = props.cellSize
+    val cellSize = 100 / game.field.size
 
     val cellClick: (Cell) -> Unit = { cell ->
         game.move(cell.x, cell.y)
@@ -32,7 +32,7 @@ val Field = FC<FieldProps> { props ->
 
 
     table {
-        css{
+        css {
 
             borderCollapse = BorderCollapse.collapse
             border = Border(1.px, LineStyle.solid)
@@ -47,14 +47,20 @@ val Field = FC<FieldProps> { props ->
                     }
                     for (cellItem in row) {
                         td {
-                            css{
+                            css {
                                 border = Border(1.px, LineStyle.solid)
                             }
                             CellComponent {
                                 cell = cellItem
                                 size = cellSize
+                                g = game
                             }
                             onClick = { cellClick(cellItem) }
+                            onContextMenu = {
+                                val chain = game.getChain(cellItem)
+                                val str = chain.map { "${it.x} ${it.y}" }.joinToString()
+                                console.log(game.isConnected(chain), str)
+                            }
                         }
                     }
                 }

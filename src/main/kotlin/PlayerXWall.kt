@@ -6,40 +6,30 @@ import react.dom.html.ReactHTML.div
 
 external interface PlayerXWallProps : Props {
     var oWallSize: Int
-
+    var isConnected: Boolean
 }
 
 val UserAWall = FC<PlayerXWallProps> { props ->
 
 
+    val innerSize = (props.oWallSize* 1.1).vh
 
+    val margin = (props.oWallSize * 0.05).vh
 
+    val color = if (props.isConnected) {
+        NamedColor.darkblue
+    } else {
+        NamedColor.lightsteelblue
+    }
 
-
-    val innerSize = props.oWallSize.px
-
-    val margin = (props.oWallSize*0.05).px
-
-    div{
-        css{
-
-
-            marginTop= margin
+    div {
+        css {
+            marginTop = margin
             width = innerSize
             height = innerSize
-            backgroundColor = NamedColor.black
-            borderRadius = 50.pc
+            backgroundColor = color
+            borderRadius = 50.vh
             display = Display.inlineBlock
         }
     }
-
-
-
-
-//        css {
-//            padding = 5.px
-//            backgroundColor = rgb(8, 97, 22)
-//            color = rgb(56, 246, 137)
-//        }
-
 }

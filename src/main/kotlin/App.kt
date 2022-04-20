@@ -31,12 +31,6 @@ val App = FC<AppProps> { props ->
     var game by useState(Game())
 
 
-
-
-    console.log("INIT", game)
-
-
-
     val windowHeight = window.innerHeight
 
     val headerHeight = (windowHeight * 0.05).toInt()

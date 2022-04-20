@@ -12,7 +12,7 @@ val PlayerX = FC<PlayerXProps> { props ->
 
     div {
         css {
-            fontSize = props.xSize.px
+            fontSize = props.xSize.vh
             color = NamedColor.darkblue
         }
         +"X"

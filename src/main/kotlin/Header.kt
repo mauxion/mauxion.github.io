@@ -37,12 +37,10 @@ external interface HeaderProps : Props {
 val Header = FC<HeaderProps> { props ->
 
     var game by useState(props.g)
-    var draftMode by useState(props.g.draftMode)
-
 
     val handleDraftMode: MouseEventHandler<HTMLSpanElement> = {
 
-        draftMode = !draftMode
+        val draftMode = !game.draftMode
 
         game.draftMode = draftMode
 
@@ -50,6 +48,7 @@ val Header = FC<HeaderProps> { props ->
             game.finishActions()
         }
         props.setGame(game)
+        game = game.copy()
     }
 
 
@@ -97,16 +96,11 @@ val Header = FC<HeaderProps> { props ->
 
                 name = "draftMode"
                 type = InputType.checkbox
-                value = draftMode.toString()
-                defaultValue = draftMode.toString()
-                defaultChecked = draftMode
+//                value = draftMode.toString()
+                defaultValue = game.draftMode.toString()
+                defaultChecked = game.draftMode
 
             }
         }
-
-
-
     }
-
-
 }
