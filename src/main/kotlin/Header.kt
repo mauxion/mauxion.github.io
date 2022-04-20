@@ -40,12 +40,12 @@ val Header = FC<HeaderProps> { props ->
     val commonHeight = 15.vh
 
 
-
     div {
         id = "header"
         css {
             fontSize = 4.vh
             textAlign = TextAlign.center
+            color = game.current.color
         }
 
         div {

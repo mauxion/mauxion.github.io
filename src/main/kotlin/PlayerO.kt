@@ -6,7 +6,6 @@ import react.dom.html.ReactHTML.div
 
 external interface PlayerOProps : Props {
     var oSize: Int
-
 }
 
 val UserO = FC<PlayerOProps> { props ->
@@ -21,7 +20,6 @@ val UserO = FC<PlayerOProps> { props ->
             marginTop = margin
             width = innerSize
             height = innerSize
-            //backgroundColor = NamedColor.darkgray
             borderRadius = props.oSize.vh
             display = Display.inlineBlock
             border = Border(1.vh, LineStyle.solid, NamedColor.darkred)
