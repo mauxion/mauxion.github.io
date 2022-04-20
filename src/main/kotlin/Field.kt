@@ -25,7 +25,7 @@ val Field = FC<FieldProps> { props ->
     val cellSize = (100 / (game.field.size*1.1)).toInt()
 
     val cellClick: (Cell) -> Unit = { cell ->
-        game.move(cell.x, cell.y)
+        game.handleClick(cell.x, cell.y)
         props.setGame(game)
     }
 

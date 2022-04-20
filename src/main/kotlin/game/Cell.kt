@@ -10,4 +10,8 @@ data class Cell(val x: Int, val y: Int) {
     fun isCaptured() = state == CellState.CAPTURED
     fun isCaptured(player: Player) = state == CellState.CAPTURED && owner == player
 
+    fun neutralize() {
+        state = CellState.NEUTRAL
+        owner = null
+    }
 }
