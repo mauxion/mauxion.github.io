@@ -33,8 +33,8 @@ val CellComponent = FC<CellProps> { props ->
 
     div {
         css {
-            height = size.vh
-            width = size.vh
+            height = size.vw
+            width = size.vw
         }
 //        +"${icon}"
 

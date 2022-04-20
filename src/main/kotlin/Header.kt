@@ -71,7 +71,6 @@ val Header = FC<HeaderProps> { props ->
                         height = 13.vh
                         fontSize = 5.vh
                         padding = 1.vh
-                        marginLeft = 10.vw
                     }
                     disabled = game.actions.size < 3
 
@@ -89,16 +88,13 @@ val Header = FC<HeaderProps> { props ->
 
         div {
             css {
-
+                float = Float.right
                 fontSize=4.vh
+                width = 30.vw
             }
-
-
-
 
             button {
                 css {
-
                     fontSize=  4.vh
                 }
                 +"switch to"
@@ -106,8 +102,6 @@ val Header = FC<HeaderProps> { props ->
                 +"$switchToModeName mode"
                 onClick = handleDraftMode
             }
-
-
         }
     }
 }
