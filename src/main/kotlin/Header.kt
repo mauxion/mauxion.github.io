@@ -1,5 +1,6 @@
 import csstype.px
 import csstype.rgb
+import csstype.vh
 import csstype.vw
 import game.Cell
 import game.CellState
@@ -10,6 +11,7 @@ import react.FC
 import react.Props
 import react.css.css
 import react.dom.html.InputType
+import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
@@ -23,8 +25,6 @@ import react.useState
 
 external interface HeaderProps : Props {
     var g: Game
-    var height: Int
-    var width: Int
     var setGame: (Game)-> Unit
 }
 
@@ -40,19 +40,21 @@ val Header = FC<HeaderProps> { props ->
     div {
         id = "header"
         css {
-            padding = 5.px
-
+            height = 15.vh
+            padding = 1.vh
         }
+
+
         button {
-            +"New game"
-            css {  marginRight = 1.vw}
-            onClick = {
-                props.setGame(Game())
+            css {
+                height = 13.vh
+                fontSize = 5.vh
+                padding = 1.vh
+                marginLeft = 20.vw
             }
-        }
-
-        button {
-            +"Player ${game.current.name} finished"
+            +"Player ${game.current.name}"
+            br{}
+                    +"finished"
             onClick = {
                 if (game.current == game.userA) {
                     game.current = game.userB

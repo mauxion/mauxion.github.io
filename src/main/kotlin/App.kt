@@ -53,8 +53,6 @@ val App = FC<AppProps> { props ->
 
     Header {
         g = game
-        height = headerHeight
-        width = maxSize
         setGame =updateFunction
     }
 
