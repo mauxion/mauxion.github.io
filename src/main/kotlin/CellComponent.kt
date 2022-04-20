@@ -25,7 +25,6 @@ val CellComponent = FC<CellProps> { props ->
     val connected = props.g.isConnected(cell)
 
 
-
     div {
         css {
             height = size.vw

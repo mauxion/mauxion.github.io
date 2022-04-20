@@ -47,7 +47,12 @@ val Field = FC<FieldProps> { props ->
                     for (cellItem in row) {
                         td {
                             css {
-                                border = Border(1.px, LineStyle.solid)
+                                if (props.g.isDraft(cellItem)) {
+                                    backgroundColor = NamedColor.darkgray
+                                    border = Border(1.px, LineStyle.dashed)
+                                } else {
+                                    border = Border(1.px, LineStyle.solid)
+                                }
                             }
                             CellComponent {
                                 cell = cellItem

@@ -99,6 +99,9 @@ class Game(
         return isFirstMove()
     }
 
+    fun isDraft(cell: Cell): Boolean {
+        return actions.find { it.x == cell.x && it.y == cell.y } != null
+    }
 
     private fun move(x: Int, y: Int) {
         if (actions.size == 3) {
@@ -132,19 +135,20 @@ class Game(
     }
 
     private fun revertLast(last: Cell) {
-        if (last.isCaptured()){
+        if (last.isCaptured()) {
             last.neutralize()
-        } else if (last.isWall()){
+        } else if (last.isWall()) {
             if (last.owner == playerX) {
                 last.owner = playerO
             } else {
                 last.owner = playerX
             }
             last.state = CellState.CAPTURED
-         }
+        }
         field[last.x][last.y] = last
         actions.removeLast()
     }
+
     fun handleClick(x: Int, y: Int) {
         val last = actions.lastOrNull()
         if (draftMode && last?.x == x && last.y == y) {

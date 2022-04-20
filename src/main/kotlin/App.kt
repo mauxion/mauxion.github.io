@@ -58,6 +58,6 @@ val App = FC<AppProps> { props ->
         setGame = updateFunction
     }
     div {
-        +"v1.0"
+        +"v1.01"
     }
 }
