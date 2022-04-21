@@ -9,25 +9,20 @@ external interface PlayerXWallProps : Props {
     var isConnected: Boolean
 }
 
-val UserAWall = FC<PlayerXWallProps> { props ->
+val PlayerXWall = FC<PlayerXWallProps> { props ->
 
 
-    val innerSize = (props.oWallSize* 1.1).vw
+    val innerSize = (props.oWallSize * 1.05).vw
 
-    val margin = (props.oWallSize * 0.05).vw
+    val margin = (props.oWallSize * 0.03).vw
 
-    val color = if (props.isConnected) {
-        NamedColor.darkblue
-    } else {
-        NamedColor.lightsteelblue
-    }
 
     div {
         css {
             marginTop = margin
             width = innerSize
             height = innerSize
-            backgroundColor = color
+            backgroundColor = if (props.isConnected) COLOR_X else COLOR_X_INACTIVE
             borderRadius = 50.vw
             display = Display.inlineBlock
         }

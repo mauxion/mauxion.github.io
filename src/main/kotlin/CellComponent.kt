@@ -20,7 +20,7 @@ val CellComponent = FC<CellProps> { props ->
     var cell by useState(props.cell)
 
     val size = props.size
-    val innerSize =  (props.size * 0.9).toInt()
+    val innerSize =  (props.size * 0.95).toInt()
 
     val connected = props.g.isConnected(cell)
 
@@ -37,7 +37,7 @@ val CellComponent = FC<CellProps> { props ->
             CellState.CAPTURED -> {
                 if (cell.owner!!.icon == Icon.X) {
                     PlayerX{
-                        xSize = innerSize
+                        xSize = (innerSize*1.4).toInt()
                     }
                 } else if (cell.owner!!.icon == Icon.O) {
                     UserO{
@@ -47,7 +47,7 @@ val CellComponent = FC<CellProps> { props ->
             }
             CellState.WALL -> {
                 if (cell.owner!!.icon == Icon.X) {
-                    UserAWall{
+                    PlayerXWall{
                         oWallSize = innerSize
                         isConnected = connected
                     }

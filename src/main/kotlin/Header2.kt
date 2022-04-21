@@ -1,5 +1,6 @@
 import csstype.*
 import game.Game
+import game.Game2
 import org.w3c.dom.HTMLButtonElement
 import react.FC
 import react.Props
@@ -10,13 +11,13 @@ import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.useState
 
-external interface HeaderProps : Props {
-    var g: Game
-    var setGame: (Game) -> Unit
+external interface Header2Props : Props {
+    var g: Game2
+    var setGame: (Game2) -> Unit
 }
 
 
-val Header = FC<HeaderProps> { props ->
+val Header2 = FC<Header2Props> { props ->
 
     var game by useState(props.g)
     var draftMode by useState(game.draftMode)
@@ -42,6 +43,8 @@ val Header = FC<HeaderProps> { props ->
 
     div {
         id = "header"
+
+        console.log("GAME", game)
         css {
             fontSize = 4.vh
             textAlign = TextAlign.center

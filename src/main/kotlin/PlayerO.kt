@@ -12,8 +12,7 @@ val UserO = FC<PlayerOProps> { props ->
 
     val innerSize = (props.oSize*0.85).vw //
 
-
-    val margin = (props.oSize * 0.05).vw
+    val margin = (props.oSize * 0.03).vw
 
     div {
         css {
@@ -22,7 +21,7 @@ val UserO = FC<PlayerOProps> { props ->
             height = innerSize
             borderRadius = props.oSize.vw
             display = Display.inlineBlock
-            border = Border(1.vw, LineStyle.solid, NamedColor.darkred)
+            border = Border(1.vw, LineStyle.solid, COLOR_O)
         }
     }
 

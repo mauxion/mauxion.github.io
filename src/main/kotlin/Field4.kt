@@ -1,6 +1,7 @@
 import csstype.*
 import game.Cell
 import game.Game
+import game.Game4
 import react.FC
 import react.Props
 import react.css.css
@@ -10,14 +11,13 @@ import react.dom.html.ReactHTML.td
 import react.dom.html.ReactHTML.tr
 import react.useState
 
-external interface FieldProps : Props {
-
-    var g: Game
-    var setGame: (Game) -> Unit
+external interface Field4Props : Props {
+    var g: Game4
+    var setGame: (Game4) -> Unit
 }
 
 
-val Field = FC<FieldProps> { props ->
+val Field4 = FC<Field4Props> { props ->
 
     val game by useState(props.g)
 
