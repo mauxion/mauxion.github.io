@@ -26,6 +26,35 @@ class Game2(
         }
     }
 
+    override fun finishActions(): Boolean {
+        return if (actions.size == 3) {
+            current = if (current == playerX) {
+                playerO
+            } else {
+                playerX
+            }
+            actions = ArrayList()
+            true
+        } else {
+            false
+        }
+    }
+
+    override fun isFirstMoveValid(x: Int, y: Int): Boolean {
+        val last = size - 1
+        return if (current == playerX) {
+            (x == 0 || x == last) && (y == 0 || y == last)
+        } else
+            if (field[0][0].isCaptured()) {
+                x == last && y == last
+            } else if (field[0][last].isCaptured()) {
+                x == last && y == 0
+            } else if (field[last][0].isCaptured()) {
+                x == 0 && y == last
+            } else {
+                x == 0 && y == 0
+            }
+    }
 
     override fun copy(): Game2 {
         val copy = Game2(dimention, playerX, playerO)

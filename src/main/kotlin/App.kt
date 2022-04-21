@@ -2,6 +2,7 @@ import csstype.*
 import game.Game
 import game.Game2
 import game.Game4
+import game.GameAbstr
 import org.w3c.dom.HTMLButtonElement
 import react.FC
 import react.Props
@@ -18,7 +19,7 @@ external interface AppProps : Props {
 
 val App = FC<AppProps> { props ->
 
-    var mayBeGame by useState<Game>()
+    var mayBeGame by useState<GameAbstr>()
 
     val set2Game: (MouseEvent<HTMLButtonElement, *>) -> Unit = {
         mayBeGame = Game2()
@@ -42,7 +43,7 @@ val App = FC<AppProps> { props ->
                     css {
                         width = 40.vw
                         fontSize = 12.vw
-                        margin=3.vw
+                        margin = 3.vw
                     }
 
                     onClick = set2Game
@@ -57,7 +58,7 @@ val App = FC<AppProps> { props ->
                     css {
                         width = 40.vw
                         fontSize = 12.vw
-                        margin=3.vw
+                        margin = 3.vw
                     }
                     onClick = { mayBeGame = Game4() }
                     +"2 vs 2"
@@ -69,20 +70,12 @@ val App = FC<AppProps> { props ->
     } else {
         div {
 
-            id = "header"
+
             css {
                 fontSize = 5.vh
-
-
             }
-            if (mayBeGame is Game2) {
-                Game2Component {
-                    game = mayBeGame as Game2
-                }
-            } else {
-                Game4Component {
-                    game = mayBeGame as Game4
-                }
+            GameComponent {
+                game = mayBeGame!!
             }
         }
     }

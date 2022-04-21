@@ -1,5 +1,7 @@
 package game
 
+import csstype.NamedColor
+
 
 interface Game {
 
@@ -27,6 +29,7 @@ interface Game {
     fun fill(x: Int, y: Int, collector: MutableSet<Cell>)
     fun fillChain(cell: Cell, collector: MutableSet<Cell>)
 
+    fun connectors(chain: Set<Cell>): Set<Icon>
 
     fun isConnection(x: Int, y: Int, owner: Player): Boolean
     fun isCellConnected(cell: Cell): Boolean
@@ -58,6 +61,4 @@ interface Game {
             false
         }
     }
-
-    fun copy(): Game
 }

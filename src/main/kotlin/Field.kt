@@ -1,7 +1,6 @@
 import csstype.*
 import game.Cell
-import game.Game
-import game.Game4
+import game.GameAbstr
 import react.FC
 import react.Props
 import react.css.css
@@ -11,13 +10,13 @@ import react.dom.html.ReactHTML.td
 import react.dom.html.ReactHTML.tr
 import react.useState
 
-external interface Field4Props : Props {
-    var g: Game4
-    var setGame: (Game4) -> Unit
+external interface FieldProps : Props {
+    var g: GameAbstr
+    var setGame: (GameAbstr) -> Unit
 }
 
 
-val Field4 = FC<Field4Props> { props ->
+val Field = FC<FieldProps> { props ->
 
     val game by useState(props.g)
 
@@ -27,6 +26,7 @@ val Field4 = FC<Field4Props> { props ->
         game.handleClick(cell.x, cell.y)
         props.setGame(game)
     }
+
 
 
     table {
@@ -47,7 +47,7 @@ val Field4 = FC<Field4Props> { props ->
                         td {
                             css {
                                 if (props.g.isDraft(cellItem)) {
-                                    backgroundColor = NamedColor.darkgray
+                                    backgroundColor = NamedColor.lightslategrey
                                     border = Border(1.px, LineStyle.dashed)
                                 } else {
                                     border = Border(1.px, LineStyle.solid)

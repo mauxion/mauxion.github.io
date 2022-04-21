@@ -10,51 +10,17 @@ open abstract class GameAbstr(
     abstract val playerO: Player
     abstract val playerX: Player
     abstract val dimention: Int
-    abstract var current:  Player
+    abstract var current: Player
     abstract val size: Int
     abstract var field: ArrayList<ArrayList<Cell>>
 
     abstract var actions: ArrayList<Cell>
-    abstract var draftMode:Boolean
+    abstract var draftMode: Boolean
 
-
-
-
-
-
-    override fun finishActions(): Boolean {
-        return if (actions.size == 3) {
-            current = if (current == playerX) {
-                playerO
-            } else {
-                playerX
-            }
-            actions = ArrayList()
-            true
-        } else {
-            false
-        }
-
-    }
 
     override fun isFirstMove(): Boolean {
-        return null == field.flatten().find { it.owner == current || it.isWall() }
-    }
-
-    override fun isFirstMoveValid(x: Int, y: Int): Boolean {
-        val last = size - 1
-        return if (current == playerX) {
-            (x == 0 || x == last) && (y == 0 || y == last)
-        } else
-            if (field[0][0].isCaptured()) {
-                x == last && y == last
-            } else if (field[0][last].isCaptured()) {
-                x == last && y == 0
-            } else if (field[last][0].isCaptured()) {
-                x == 0 && y == last
-            } else {
-                x == 0 && y == 0
-            }
+        val resp = null == field.flatten().find { it.owner == current || it.isWall() }
+        return resp
     }
 
 
@@ -67,8 +33,10 @@ open abstract class GameAbstr(
         if (cell.isCaptured(current)) {
             return true
         }
-        if (cell.isWall(current)) {
-            return isConnected(cell)
+        if (cell.isWall(current.color)) {
+            val chain = getChain(cell)
+            return connectors(chain).contains(current.icon)
+//            return isConnected(cell)
         }
         return false
     }
@@ -113,12 +81,14 @@ open abstract class GameAbstr(
             CellState.NEUTRAL -> {
                 cell.state = CellState.CAPTURED
                 cell.owner = current
+                cell.color = current.color
                 actions.add(cell)
             }
             CellState.CAPTURED -> {
                 if (cell.owner != current) {
                     cell.owner = current
                     cell.state = CellState.WALL
+                    cell.color = current.color
                     actions.add(cell)
                 }
             }
@@ -156,8 +126,10 @@ open abstract class GameAbstr(
 
     override fun fill(x: Int, y: Int, collector: MutableSet<Cell>) {
         val c = field[x][y]
-        val owner = collector.first()!!.owner!!
-        if (c.isWall(owner) && !collector.contains(c)) {
+        val color = collector.first()!!.owner!!.color
+
+        if (c.isWall(color) && !collector.contains(c)) {
+            console.log("$x,$y, ${color.name}, isWall:${c.isWall(color)}")
             fillChain(c, collector)
         }
     }
@@ -192,6 +164,57 @@ open abstract class GameAbstr(
         return cell.isCaptured(owner)
     }
 
+
+    protected fun fill(x: Int, y: Int, color: NamedColor, collector: MutableSet<Icon>) {
+        val c = field[x][y]
+
+        if (c.owner != null) {
+            val icon = c.owner!!.icon
+            if (c.isCaptured(color) && !collector.contains(icon)) {
+                console.log("Add $x, $y, $color, $icon")
+                collector.add(icon)
+            }
+        }
+    }
+
+
+    protected fun addConnectors(chainLink: Cell, collector: MutableSet<Icon>) {
+        val x = chainLink.x
+        val y = chainLink.y
+        val size = field.size
+        val color = chainLink.owner!!.color
+
+
+        //north
+        if (x - 1 >= 0) fill(x - 1, y, color, collector)
+        //north-west
+        if (x - 1 >= 0 && y - 1 >= 0) fill(x - 1, y - 1, color, collector)
+        //west
+        if (y - 1 >= 0) fill(x, y - 1, color, collector)
+        //south-west
+        if (x + 1 < size && y - 1 >= 0) fill(x + 1, y - 1, color, collector)
+        //south
+        if (x + 1 < size) fill(x + 1, y, color, collector)
+        //south-east
+        if (x + 1 < size && y + 1 < size) fill(x + 1, y + 1, color, collector)
+        //east
+        if (y + 1 < size) fill(x, y + 1, color, collector)
+        //north-east
+        if (x - 1 >= 0 && y + 1 < size) fill(x - 1, y + 1, color, collector)
+    }
+
+    override fun connectors(chain: Set<Cell>): Set<Icon> {
+        val set = mutableSetOf<Icon>()
+
+        chain.forEach { cell ->
+            if (set.size == 0 || (this is Game4 && set.size == 1)) {
+                addConnectors(cell, set)
+            }
+        }
+        return set
+    }
+
+
     override fun isCellConnected(cell: Cell): Boolean {
 
         val x = cell.x
@@ -219,5 +242,5 @@ open abstract class GameAbstr(
         return false
     }
 
-
+    abstract fun copy(): GameAbstr
 }

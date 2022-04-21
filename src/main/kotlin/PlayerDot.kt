@@ -4,26 +4,27 @@ import react.Props
 import react.css.css
 import react.dom.html.ReactHTML.div
 
-external interface PlayerOProps : Props {
-    var oSize: Int
+external interface PlayerDotProps : Props {
+    var dotSize: Int
 }
 
-val PlayerO = FC<PlayerOProps> { props ->
+val PlayerDot = FC<PlayerDotProps> { props ->
 
-    val innerSize = (props.oSize*0.85).vw //
+    val innerSize = props.dotSize.vw
 
-    val margin = (props.oSize * 0.03).vw
+    val margin = (props.dotSize * 0.05).vw
 
     div {
+
         css {
             marginTop = margin
             width = innerSize
             height = innerSize
-            borderRadius = props.oSize.vw
+            backgroundColor =   COLOR_O
+            borderRadius = 50.vw
             display = Display.inlineBlock
-            border = Border(1.vw, LineStyle.solid, COLOR_O)
+
         }
     }
-
 
 }
