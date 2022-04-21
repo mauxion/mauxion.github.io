@@ -30,30 +30,16 @@ val App = FC<AppProps> { props ->
 
     var game by useState(Game())
 
-
-    val windowHeight = window.innerHeight
-
-    val headerHeight = (windowHeight * 0.05).toInt()
-
-
-    val maxHeight = (windowHeight * 0.85).toInt()
-    val windowWidth = (window.innerWidth * 0.93).toInt()
-    val maxSize = if (maxHeight < windowWidth) maxHeight else windowWidth
-
     val updateFunction: (Game) -> Unit = { newGame ->
         game = newGame.copy()
     }
-
 
     Header {
         g = game
         setGame = updateFunction
     }
 
-
-
     Field {
-        cellSize = maxSize / game.size
         g = game
         setGame = updateFunction
     }

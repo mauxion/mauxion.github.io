@@ -12,7 +12,6 @@ import react.useState
 
 external interface FieldProps : Props {
 
-    var cellSize: Int
     var g: Game
     var setGame: (Game) -> Unit
 }
@@ -22,7 +21,7 @@ val Field = FC<FieldProps> { props ->
 
     val game by useState(props.g)
 
-    val cellSize = (100 / (game.field.size*1.1)).toInt()
+    val cellSize = (100 / (game.field.size * 1.1)).toInt()
 
     val cellClick: (Cell) -> Unit = { cell ->
         game.handleClick(cell.x, cell.y)
