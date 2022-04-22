@@ -2,6 +2,7 @@ import csstype.Float
 import csstype.TextAlign
 import csstype.vh
 import csstype.vw
+import game.Game4
 import game.GameAbstr
 import org.w3c.dom.HTMLButtonElement
 import react.FC
@@ -47,7 +48,17 @@ val Header = FC<HeaderProps> { props ->
                 float = Float.left
                 width = 30.vw
             }
-            +"Player ${game.current.name}"
+            PlayerIcon {
+                iconSize = 4
+                iconName = game.current.icon.name
+            }
+            if (game is Game4) {
+                +" → "
+                PlayerIcon {
+                    iconSize = 4
+                    iconName = game.nextPlayer().icon.name
+                }
+            }
             br {}
             +"(${3 - game.actions.size} left)"
         }

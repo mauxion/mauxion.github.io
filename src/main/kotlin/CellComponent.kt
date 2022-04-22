@@ -19,14 +19,6 @@ val CellComponent = FC<CellProps> { props ->
     var cell by useState(props.cell)
     var size = props.size
 
-    val handleContext: (Cell) -> Unit = { cell ->
-        val chain = props.g.getChain(cell)
-
-        val con = props.g.isConnected(chain)
-        val connectors = props.g.connectors(chain).joinToString()
-        console.log(con, chain.joinToString { "${it.x} ${it.y}" }, connectors)
-    }
-
     div {
         css {
             if (props.g.isDraft(cell)) {
@@ -36,8 +28,6 @@ val CellComponent = FC<CellProps> { props ->
             height = size.vw
             width = size.vw
         }
-        onContextMenu = { handleContext(cell) }
-
 
         when (cell.state) {
             CellState.NEUTRAL -> +""

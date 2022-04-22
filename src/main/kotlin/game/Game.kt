@@ -26,6 +26,9 @@ interface Game {
         return false
     }
 
+    fun nextPlayer(): Player
+
+
     fun getChain(cell: Cell): Set<Cell> {
         return if (cell.isWall()) {
             val chain = mutableSetOf<Cell>()

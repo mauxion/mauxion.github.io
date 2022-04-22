@@ -56,11 +56,6 @@ val Field = FC<FieldProps> { props ->
                                 g = game
                             }
                             onClick = { cellClick(cellItem) }
-                            onContextMenu = {
-                                val chain = game.getChain(cellItem)
-                                val str = chain.map { "${it.x} ${it.y}" }.joinToString()
-                                console.log(game.isConnected(chain), str)
-                            }
                         }
                     }
                 }

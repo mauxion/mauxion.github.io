@@ -106,7 +106,6 @@ open abstract class GameAbstr() : Game {
         val color = collector.first()!!.color!!
 
         if (c.isWall(color) && !collector.contains(c)) {
-            console.log("$x,$y, ${color.name}, isWall:${c.isWall(color)}")
             fillChain(c, collector)
         }
     }
@@ -146,9 +145,7 @@ open abstract class GameAbstr() : Game {
         val c = field[x][y]
         if (c.owner != null) {
             val icon = c.owner!!.icon
-
             if (c.isCaptured(color) && !collector.contains(icon)) {
-                console.log("Add $x, $y, $color, $icon")
                 collector.add(icon)
             }
         }
@@ -227,6 +224,16 @@ open abstract class GameAbstr() : Game {
         if (x - 1 >= 0 && y + 1 < size && isConnection(x - 1, y + 1, owner)) return true
 
         return false
+    }
+
+    override fun finishActions(): Boolean {
+        return if (actions.size == 3) {
+            current = nextPlayer()
+            actions = ArrayList()
+            true
+        } else {
+            false
+        }
     }
 
     abstract fun copy(): GameAbstr

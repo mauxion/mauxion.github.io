@@ -24,18 +24,12 @@ class Game4(
         }
     }
 
-    override fun finishActions(): Boolean {
-        return if (actions.size == 3) {
-            current = when (current) {
-                playerX -> playerO
-                playerO -> playerPlus
-                playerPlus -> playerDot
-                else -> playerX
-            }
-            actions = ArrayList()
-            true
-        } else {
-            false
+    override fun nextPlayer(): Player {
+        return when (current) {
+            playerX -> playerO
+            playerO -> playerPlus
+            playerPlus -> playerDot
+            else -> playerX
         }
     }
 

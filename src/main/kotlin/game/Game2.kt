@@ -23,17 +23,11 @@ class Game2(
         }
     }
 
-    override fun finishActions(): Boolean {
-        return if (actions.size == 3) {
-            current = if (current == playerX) {
-                playerO
-            } else {
-                playerX
-            }
-            actions = ArrayList()
-            true
+    override fun nextPlayer(): Player {
+       return if (current == playerX) {
+            playerO
         } else {
-            false
+            playerX
         }
     }
 

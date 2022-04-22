@@ -31,9 +31,6 @@ val Wall = FC<WallProps> { props ->
     }
 
     div {
-        onContextMenu = {
-            console.log("Connectors", connectors.joinToString { "${it.name}" })
-        }
         ReactHTML.img {
             width = imgW
             src = "img/${iconName}.gif"
