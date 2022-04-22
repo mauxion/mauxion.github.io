@@ -9,9 +9,9 @@ class Game2(
     override var current: Player = playerX
     override val size = 6 * dimention + 2
     override var field = ArrayList<ArrayList<Cell>>()
-
     override var actions = ArrayList<Cell>()
     override var draftMode = false
+    override var hintMode = false
 
     init {
         for (i in 0 until size) {
@@ -24,7 +24,7 @@ class Game2(
     }
 
     override fun nextPlayer(): Player {
-       return if (current == playerX) {
+        return if (current == playerX) {
             playerO
         } else {
             playerX
@@ -47,13 +47,13 @@ class Game2(
             }
     }
 
-
     override fun copy(): Game2 {
         val copy = Game2(dimention, playerX, playerO)
         copy.field = field
         copy.current = current
         copy.actions = actions
         copy.draftMode = draftMode
+        copy.hintMode = hintMode
         return copy
     }
 }

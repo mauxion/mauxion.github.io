@@ -25,7 +25,7 @@ interface Game {
         }
         return false
     }
-
+    fun isNextMoveValid(cell: Cell): Boolean
     fun nextPlayer(): Player
 
 

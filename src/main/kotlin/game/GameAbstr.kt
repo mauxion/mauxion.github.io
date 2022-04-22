@@ -10,7 +10,7 @@ open abstract class GameAbstr() : Game {
     abstract var field: ArrayList<ArrayList<Cell>>
     abstract var actions: ArrayList<Cell>
     abstract var draftMode: Boolean
-
+    abstract var hintMode: Boolean
 
     override fun isFirstMove(): Boolean {
         val resp = null == field.flatten().find { it.owner == current || it.isWall() }
@@ -32,6 +32,14 @@ open abstract class GameAbstr() : Game {
             return connectors(chain).contains(current.icon)
         }
         return false
+    }
+
+
+    override fun isNextMoveValid(cell: Cell): Boolean {
+        if (isFirstMove()) {
+            return isFirstMoveValid(cell.x, cell.y)
+        }
+        return isMoveValid(cell.x, cell.y)
     }
 
     override fun isMoveValid(x: Int, y: Int): Boolean {

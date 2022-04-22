@@ -7,12 +7,12 @@ class Game4(
     override val playerO: Player = PLAYER_O,
     val playerDot: Player = PLAYER_DOT,
 ) : GameAbstr() {
-
     override var current: Player = playerX
     override val size = 6 * dimention + 2
     override var field = ArrayList<ArrayList<Cell>>()
     override var actions = ArrayList<Cell>()
     override var draftMode = false
+    override var hintMode = false
 
     init {
         for (i in 0 until size) {
@@ -59,6 +59,7 @@ class Game4(
         copy.current = current
         copy.actions = actions
         copy.draftMode = draftMode
+        copy.hintMode = hintMode
         return copy
     }
 

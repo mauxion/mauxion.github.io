@@ -1,7 +1,7 @@
 import csstype.*
 import game.Cell
 import game.CellState
-import game.Game
+import game.GameAbstr
 import react.FC
 import react.Props
 import react.css.css
@@ -10,20 +10,26 @@ import react.useState
 
 external interface CellProps : Props {
     var cell: Cell
-    var g: Game
+    var g: GameAbstr
     var size: Int
 }
 
 val CellComponent = FC<CellProps> { props ->
 
     var cell by useState(props.cell)
+    val game = props.g
+    var isValid = game.hintMode && game.isNextMoveValid(cell)
+
     var size = props.size
 
     div {
         css {
-            if (props.g.isDraft(cell)) {
+            if (game.isDraft(cell)) {
                 filter = contrast(50.pct)
                 outline = Outline(1.px, LineStyle.dashed)
+            }
+            if (isValid) {
+                backgroundColor = NamedColor.darkgray
             }
             height = size.vw
             width = size.vw
@@ -40,7 +46,7 @@ val CellComponent = FC<CellProps> { props ->
             CellState.WALL -> {
                 Wall {
                     iconSize = size
-                    game = props.g
+                    g = game
                     chainLink = cell
                 }
             }

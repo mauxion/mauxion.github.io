@@ -10,7 +10,7 @@ import react.dom.html.ReactHTML.div
 external interface WallProps : Props {
     var iconSize: Int
     var chainLink: Cell
-    var game: Game
+    var g: Game
 }
 
 val INACTIVE = "-inactive"
@@ -18,9 +18,12 @@ val INACTIVE = "-inactive"
 val Wall = FC<WallProps> { props ->
     val imgW = document.body!!.offsetWidth * (props.iconSize) / 100.0
 
-    val game = props.game
+    val game = props.g
     val chainLink = props.chainLink
-    val connectors = game.connectors(game.getChain(chainLink))
+
+    val chain = game.getChain(chainLink)
+
+    val connectors = game.connectors(chain)
 
     var iconName = "Wall-${chainLink.color!!.name}"
 

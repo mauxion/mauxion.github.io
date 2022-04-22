@@ -23,7 +23,9 @@ val Header = FC<HeaderProps> { props ->
 
     var game by useState(props.g)
     var draftMode by useState(game.draftMode)
+    var hintMode by useState(game.hintMode)
     var switchToModeName = if (draftMode) "strict" else "draft"
+    val turnHintMode = if (hintMode) "off" else "on"
 
     val handleDraftMode: MouseEventHandler<HTMLButtonElement> = {
         val newDraftMode = !draftMode
@@ -35,10 +37,20 @@ val Header = FC<HeaderProps> { props ->
         props.setGame(game)
     }
 
+    val handleHintMode: MouseEventHandler<HTMLButtonElement> = {
+        val newHintMode = !hintMode
+        game.hintMode = newHintMode
+        hintMode = newHintMode
+        props.setGame(game)
+    }
+
+    val headerFontSize = 4
+    val headerElemWidth = 23.vw
+
     div {
         id = "header"
         css {
-            fontSize = 4.vh
+            fontSize = headerFontSize.vh
             textAlign = TextAlign.center
             color = game.current.color.namedColor
         }
@@ -46,16 +58,16 @@ val Header = FC<HeaderProps> { props ->
         div {
             css {
                 float = Float.left
-                width = 30.vw
+                minWidth = headerElemWidth
             }
             PlayerIcon {
-                iconSize = 4
+                iconSize = headerFontSize
                 iconName = game.current.icon.name
             }
             if (game is Game4) {
                 +" → "
                 PlayerIcon {
-                    iconSize = 4
+                    iconSize = headerFontSize
                     iconName = game.nextPlayer().icon.name
                 }
             }
@@ -66,24 +78,36 @@ val Header = FC<HeaderProps> { props ->
         div {
             css {
                 float = Float.left
-                width = 30.vw
+                minWidth = headerElemWidth
+                minHeight = 1.vh
             }
             if (game.draftMode) {
                 button {
                     css {
-                        fontSize = 5.vh
+                        fontSize = headerFontSize.vh
                         padding = 1.vh
                     }
                     disabled = game.actions.size < 3
-
                     +"done"
                     onClick = {
                         if (game.finishActions()) {
                             props.setGame(game)
                         }
-
                     }
                 }
+            }
+        }
+        div {
+            css {
+                float = Float.left
+                fontSize = 4.vh
+                minWidth = headerElemWidth
+            }
+            button {
+                +"turn $turnHintMode"
+                br {}
+                +"hints"
+                onClick = handleHintMode
             }
         }
 
@@ -91,12 +115,9 @@ val Header = FC<HeaderProps> { props ->
             css {
                 float = Float.right
                 fontSize = 4.vh
-                width = 30.vw
+                minWidth = headerElemWidth
             }
             button {
-                css {
-                    fontSize = 4.vh
-                }
                 +"switch to"
                 br {}
                 +"$switchToModeName mode"
