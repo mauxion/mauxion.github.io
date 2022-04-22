@@ -1,19 +1,13 @@
 package game
 
-import csstype.NamedColor
 
-
-open abstract class GameAbstr(
-
-
-) : Game {
+open abstract class GameAbstr() : Game {
     abstract val playerO: Player
     abstract val playerX: Player
     abstract val dimention: Int
     abstract var current: Player
     abstract val size: Int
     abstract var field: ArrayList<ArrayList<Cell>>
-
     abstract var actions: ArrayList<Cell>
     abstract var draftMode: Boolean
 
@@ -36,7 +30,6 @@ open abstract class GameAbstr(
         if (cell.isWall(current.color)) {
             val chain = getChain(cell)
             return connectors(chain).contains(current.icon)
-//            return isConnected(cell)
         }
         return false
     }
@@ -85,34 +78,18 @@ open abstract class GameAbstr(
                 actions.add(cell)
             }
             CellState.CAPTURED -> {
-                if (cell.owner != current) {
-                    cell.owner = current
+                if (cell.color != current.color) {
                     cell.state = CellState.WALL
                     cell.color = current.color
                     actions.add(cell)
                 }
             }
         }
-
         if (actions.size == 3 && !draftMode) {
             finishActions()
         }
     }
 
-    override fun revertLast(last: Cell) {
-        if (last.isCaptured()) {
-            last.neutralize()
-        } else if (last.isWall()) {
-            if (last.owner == playerX) {
-                last.owner = playerO
-            } else {
-                last.owner = playerX
-            }
-            last.state = CellState.CAPTURED
-        }
-        field[last.x][last.y] = last
-        actions.removeLast()
-    }
 
     override fun handleClick(x: Int, y: Int) {
         val last = actions.lastOrNull()
@@ -126,7 +103,7 @@ open abstract class GameAbstr(
 
     override fun fill(x: Int, y: Int, collector: MutableSet<Cell>) {
         val c = field[x][y]
-        val color = collector.first()!!.owner!!.color
+        val color = collector.first()!!.color!!
 
         if (c.isWall(color) && !collector.contains(c)) {
             console.log("$x,$y, ${color.name}, isWall:${c.isWall(color)}")
@@ -165,11 +142,11 @@ open abstract class GameAbstr(
     }
 
 
-    protected fun fill(x: Int, y: Int, color: NamedColor, collector: MutableSet<Icon>) {
+    protected fun fill(x: Int, y: Int, color: Color, collector: MutableSet<Icon>) {
         val c = field[x][y]
-
         if (c.owner != null) {
             val icon = c.owner!!.icon
+
             if (c.isCaptured(color) && !collector.contains(icon)) {
                 console.log("Add $x, $y, $color, $icon")
                 collector.add(icon)
@@ -177,13 +154,26 @@ open abstract class GameAbstr(
         }
     }
 
+    override fun revertLast(last: Cell) {
+        if (last.isCaptured()) {
+            last.neutralize()
+        } else if (last.isWall()) {
+            if (last.color == playerX.color) {
+                last.color = playerO.color
+            } else {
+                last.color = playerX.color
+            }
+            last.state = CellState.CAPTURED
+        }
+        field[last.x][last.y] = last
+        actions.removeLast()
+    }
 
     protected fun addConnectors(chainLink: Cell, collector: MutableSet<Icon>) {
         val x = chainLink.x
         val y = chainLink.y
         val size = field.size
-        val color = chainLink.owner!!.color
-
+        val color = chainLink.color!!
 
         //north
         if (x - 1 >= 0) fill(x - 1, y, color, collector)
@@ -205,7 +195,6 @@ open abstract class GameAbstr(
 
     override fun connectors(chain: Set<Cell>): Set<Icon> {
         val set = mutableSetOf<Icon>()
-
         chain.forEach { cell ->
             if (set.size == 0 || (this is Game4 && set.size == 1)) {
                 addConnectors(cell, set)
@@ -214,9 +203,7 @@ open abstract class GameAbstr(
         return set
     }
 
-
     override fun isCellConnected(cell: Cell): Boolean {
-
         val x = cell.x
         val y = cell.y
         val size = field.size

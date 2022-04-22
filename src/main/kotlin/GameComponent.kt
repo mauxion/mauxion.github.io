@@ -1,4 +1,4 @@
-import game.*
+import game.GameAbstr
 import react.FC
 import react.Props
 import react.useState
@@ -6,7 +6,6 @@ import react.useState
 external interface GameProps : Props {
     var game: GameAbstr
 }
-
 
 val GameComponent = FC<GameProps> { props ->
 
@@ -22,7 +21,6 @@ val GameComponent = FC<GameProps> { props ->
     }
 
     Field {
-
         g = game
         setGame = updateFunction
     }

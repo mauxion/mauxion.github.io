@@ -1,14 +1,11 @@
 package game
 
-import PLAYER_O
-import PLAYER_X
-
 
 class Game2(
     override val dimention: Int = 1,
     override val playerX: Player = PLAYER_X,
     override val playerO: Player = PLAYER_O
-) : GameAbstr (){
+) : GameAbstr() {
     override var current: Player = playerX
     override val size = 6 * dimention + 2
     override var field = ArrayList<ArrayList<Cell>>()
@@ -55,6 +52,7 @@ class Game2(
                 x == 0 && y == 0
             }
     }
+
 
     override fun copy(): Game2 {
         val copy = Game2(dimention, playerX, playerO)

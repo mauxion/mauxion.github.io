@@ -1,5 +1,4 @@
 import csstype.*
-import game.Game
 import game.Game2
 import game.Game4
 import game.GameAbstr
@@ -26,14 +25,11 @@ val App = FC<AppProps> { props ->
     }
     if (mayBeGame == null) {
 
-
         div {
             css {
                 textAlign = TextAlign.center
                 display = Display.inlineBlock
             }
-
-
             div {
                 css {
                     float = Float.left
@@ -45,7 +41,6 @@ val App = FC<AppProps> { props ->
                         fontSize = 12.vw
                         margin = 3.vw
                     }
-
                     onClick = set2Game
                     +"1 vs 1"
                 }
@@ -65,12 +60,8 @@ val App = FC<AppProps> { props ->
                 }
             }
         }
-
-
     } else {
         div {
-
-
             css {
                 fontSize = 5.vh
             }
@@ -79,9 +70,7 @@ val App = FC<AppProps> { props ->
             }
         }
     }
-
-
     div {
-        +"v2.00"
+        +"v2.10"
     }
 }

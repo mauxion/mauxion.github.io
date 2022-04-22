@@ -1,11 +1,5 @@
 package game
 
-import PLAYER_DOT
-import PLAYER_O
-import PLAYER_PLUS
-import PLAYER_X
-
-
 class Game4(
     override val dimention: Int = 1,
     override val playerX: Player = PLAYER_X,
@@ -15,11 +9,8 @@ class Game4(
 ) : GameAbstr() {
 
     override var current: Player = playerX
-
-
     override val size = 6 * dimention + 2
     override var field = ArrayList<ArrayList<Cell>>()
-
     override var actions = ArrayList<Cell>()
     override var draftMode = false
 
@@ -54,24 +45,6 @@ class Game4(
             playerX -> {
                 (x == 0 || x == last) && (y == 0 || y == last)
             }
-//            playerO -> {
-//                if (field[0][0].isCaptured()) {
-//                    x == last && y == last
-//                } else if (field[0][last].isCaptured()) {
-//                    x == last && y == 0
-//                } else if (field[last][0].isCaptured()) {
-//                    x == 0 && y == last
-//                } else {
-//                    x == 0 && y == 0
-//                }
-//            }
-//            playerPlus -> {
-//                if (field[0][0].isCaptured()) {
-//                    (x == last && y == 0) || (x == 0 && y == last)
-//                } else {
-//                    (x == 0 && y == 0) || (x == last && y == last)
-//                }
-//            }
             else -> {
                 if (field[x][y].isNeutral()) {
                     (x == 0 && y == 0)
@@ -94,4 +67,5 @@ class Game4(
         copy.draftMode = draftMode
         return copy
     }
+
 }
