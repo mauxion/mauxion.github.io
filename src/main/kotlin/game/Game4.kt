@@ -12,7 +12,7 @@ class Game4(
     override var field = ArrayList<ArrayList<Cell>>()
     override var actions = ArrayList<Cell>()
     override var draftMode = false
-    override var hintMode = false
+    override var hintMode = true
 
     init {
         for (i in 0 until size) {

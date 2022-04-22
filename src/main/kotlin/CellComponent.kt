@@ -24,12 +24,14 @@ val CellComponent = FC<CellProps> { props ->
 
     div {
         css {
+
             if (game.isDraft(cell)) {
-                filter = contrast(50.pct)
-                outline = Outline(1.px, LineStyle.dashed)
+                backdropFilter = brightness(1.2)
+            } else {
+                filter = dropShadow(0.2.vw, 0.4.vw, 0.6.vw)
             }
             if (isValid) {
-                backgroundColor = NamedColor.darkgray
+                backdropFilter = brightness(1.2)
             }
             height = size.vw
             width = size.vw

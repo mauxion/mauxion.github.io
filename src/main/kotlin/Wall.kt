@@ -36,7 +36,7 @@ val Wall = FC<WallProps> { props ->
     div {
         ReactHTML.img {
             width = imgW
-            src = "img/${iconName}.gif"
+            src = "img/${iconName}.png"
         }
     }
 }

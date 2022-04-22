@@ -40,6 +40,7 @@ val App = FC<AppProps> { props ->
                         width = 40.vw
                         fontSize = 12.vw
                         margin = 3.vw
+                        filter = dropShadow(0.2.vw, 0.4.vw, 0.6.vw)
                     }
                     onClick = set2Game
                     +"1 vs 1"
@@ -54,6 +55,7 @@ val App = FC<AppProps> { props ->
                         width = 40.vw
                         fontSize = 12.vw
                         margin = 3.vw
+                        filter = dropShadow(0.2.vw, 0.4.vw, 0.6.vw)
                     }
                     onClick = { mayBeGame = Game4() }
                     +"2 vs 2"
@@ -71,6 +73,6 @@ val App = FC<AppProps> { props ->
         }
     }
     div {
-        +"v2.10"
+        +"v3.00"
     }
 }

@@ -15,7 +15,7 @@ val IconComp = FC<IconCompProps> { props ->
     div {
         ReactHTML.img {
             width = imgW
-            src = "img/${props.iconName}.gif"
+            src = "img/${props.iconName}.png"
         }
     }
 }

@@ -36,9 +36,13 @@ open abstract class GameAbstr() : Game {
 
 
     override fun isNextMoveValid(cell: Cell): Boolean {
+        if (actions.size == 3) return false
         if (isFirstMove()) {
             return isFirstMoveValid(cell.x, cell.y)
         }
+        if (cell.color == current.color) return false
+        if (cell.isWall()) return false
+
         return isMoveValid(cell.x, cell.y)
     }
 

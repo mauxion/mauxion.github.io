@@ -13,6 +13,6 @@ val PlayerIcon = FC<PlayerIconProps> { props ->
     val imgW = document.body!!.offsetWidth * (props.iconSize) / 100.0
         ReactHTML.img {
             width = imgW
-            src = "img/${props.iconName}.gif"
+            src = "img/${props.iconName}.png"
         }
 }

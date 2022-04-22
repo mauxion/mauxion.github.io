@@ -1,7 +1,4 @@
-import csstype.Float
-import csstype.TextAlign
-import csstype.vh
-import csstype.vw
+import csstype.*
 import game.Game4
 import game.GameAbstr
 import org.w3c.dom.HTMLButtonElement
@@ -44,30 +41,32 @@ val Header = FC<HeaderProps> { props ->
         props.setGame(game)
     }
 
-    val headerFontSize = 4
+    val headerFontSize = 3.vw
+    val playerIconSize = 4
     val headerElemWidth = 23.vw
 
     div {
         id = "header"
         css {
-            fontSize = headerFontSize.vh
             textAlign = TextAlign.center
             color = game.current.color.namedColor
+            display = Display.inlineBlock
         }
 
         div {
             css {
                 float = Float.left
                 minWidth = headerElemWidth
+                fontSize = headerFontSize
             }
             PlayerIcon {
-                iconSize = headerFontSize
+                iconSize = playerIconSize
                 iconName = game.current.icon.name
             }
             if (game is Game4) {
                 +" → "
                 PlayerIcon {
-                    iconSize = headerFontSize
+                    iconSize = playerIconSize
                     iconName = game.nextPlayer().icon.name
                 }
             }
@@ -84,8 +83,11 @@ val Header = FC<HeaderProps> { props ->
             if (game.draftMode) {
                 button {
                     css {
-                        fontSize = headerFontSize.vh
+                        fontSize = headerFontSize
                         padding = 1.vh
+                        if (game.actions.size == 3) {
+                            filter = dropShadow(0.2.vw, 0.4.vw, 0.6.vw)
+                        }
                     }
                     disabled = game.actions.size < 3
                     +"done"
@@ -100,10 +102,14 @@ val Header = FC<HeaderProps> { props ->
         div {
             css {
                 float = Float.left
-                fontSize = 4.vh
                 minWidth = headerElemWidth
             }
             button {
+                css {
+                    fontSize = headerFontSize
+                    display = Display.block
+                    filter = dropShadow(0.2.vw, 0.4.vw, 0.6.vw)
+                }
                 +"turn $turnHintMode"
                 br {}
                 +"hints"
@@ -114,10 +120,14 @@ val Header = FC<HeaderProps> { props ->
         div {
             css {
                 float = Float.right
-                fontSize = 4.vh
                 minWidth = headerElemWidth
             }
             button {
+                css {
+                    fontSize = headerFontSize
+                    display = Display.block
+                    filter = dropShadow(0.2.vw, 0.4.vw, 0.6.vw)
+                }
                 +"switch to"
                 br {}
                 +"$switchToModeName mode"
