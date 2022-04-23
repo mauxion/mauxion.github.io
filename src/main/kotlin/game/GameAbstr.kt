@@ -248,5 +248,10 @@ open abstract class GameAbstr() : Game {
         }
     }
 
+    override fun isLost(): Boolean {
+        if (actions.size == 3) return false
+        return field.flatten().none { isNextMoveValid(it) }
+    }
+
     abstract fun copy(): GameAbstr
 }

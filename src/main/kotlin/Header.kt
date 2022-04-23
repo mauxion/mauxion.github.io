@@ -1,10 +1,10 @@
 import csstype.*
+import emotion.react.css
 import game.Game4
 import game.GameAbstr
 import org.w3c.dom.HTMLButtonElement
 import react.FC
 import react.Props
-import react.css.css
 import react.dom.events.MouseEventHandler
 import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.button
@@ -85,6 +85,7 @@ val Header = FC<HeaderProps> { props ->
                     css {
                         fontSize = headerFontSize
                         padding = 1.vh
+                        display = Display.block
                         if (game.actions.size == 3) {
                             filter = dropShadow(0.2.vw, 0.4.vw, 0.6.vw)
                         }

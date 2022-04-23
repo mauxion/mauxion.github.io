@@ -1,9 +1,9 @@
 import csstype.*
+import emotion.react.css
 import game.Cell
 import game.GameAbstr
 import react.FC
 import react.Props
-import react.css.css
 import react.dom.html.ReactHTML.table
 import react.dom.html.ReactHTML.tbody
 import react.dom.html.ReactHTML.td

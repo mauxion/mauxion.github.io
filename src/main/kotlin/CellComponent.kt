@@ -1,10 +1,12 @@
-import csstype.*
+import csstype.brightness
+import csstype.dropShadow
+import csstype.vw
+import emotion.react.css
 import game.Cell
 import game.CellState
 import game.GameAbstr
 import react.FC
 import react.Props
-import react.css.css
 import react.dom.html.ReactHTML.div
 import react.useState
 
@@ -26,7 +28,9 @@ val CellComponent = FC<CellProps> { props ->
         css {
 
             if (game.isDraft(cell)) {
-                backdropFilter = brightness(1.2)
+                if (game.draftMode) {
+                    backdropFilter = brightness(1.2)
+                }
             } else {
                 filter = dropShadow(0.2.vw, 0.4.vw, 0.6.vw)
             }

@@ -1,11 +1,11 @@
 import csstype.*
+import emotion.react.css
 import game.Game2
 import game.Game4
 import game.GameAbstr
 import org.w3c.dom.HTMLButtonElement
 import react.FC
 import react.Props
-import react.css.css
 import react.dom.events.MouseEvent
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
@@ -20,9 +20,12 @@ val App = FC<AppProps> { props ->
 
     var mayBeGame by useState<GameAbstr>()
 
+    val restartGame: () -> Unit = { mayBeGame = null }
+
     val set2Game: (MouseEvent<HTMLButtonElement, *>) -> Unit = {
         mayBeGame = Game2()
     }
+
     if (mayBeGame == null) {
 
         div {
@@ -69,10 +72,14 @@ val App = FC<AppProps> { props ->
             }
             GameComponent {
                 game = mayBeGame!!
+                restart = restartGame
             }
         }
     }
     div {
+        css {
+            visibility = Visibility.hidden
+        }
         +"v3.00"
     }
 }

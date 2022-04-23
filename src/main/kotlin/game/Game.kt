@@ -28,6 +28,7 @@ interface Game {
     fun isNextMoveValid(cell: Cell): Boolean
     fun nextPlayer(): Player
 
+    fun isLost(): Boolean
 
     fun getChain(cell: Cell): Set<Cell> {
         return if (cell.isWall()) {
